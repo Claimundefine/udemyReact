@@ -10,6 +10,16 @@ const Info = (props) =>  (
     </div>
 );
 
-const withAdminWarning = 
+const withAdminWarning = (WrappedComponent) => {
+    return (props) => (
+        <div>
+            <p>This is private Info</p>
+            <WrappedComponent {...props}/>
+        </div>
+    );
+};
 
-ReactDOM.render(<Info info='meme'/>, document.getElementById('app'));
+const AdminInfo = withAdminWarning(Info);
+const AuthInfo = requireAuthentication(Info);
+
+ReactDOM.render(<AdminInfo isAdmin = {false} info='meme'/>, document.getElementById('app'));
